@@ -4,10 +4,37 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
+data class CharacteristicModel(
+    val title: String,
+    val value: String,
+)
+
 class ProductViewModel : ViewModel() {
 
-    private val _name: MutableLiveData<String> = MutableLiveData("")
-    val name: LiveData<String> = _name
+    private val _sku: MutableLiveData<String> = MutableLiveData("Артикул 90809890")
+    val sku: LiveData<String> = _sku
 
-    fun setNewName(newName: String) = _name.postValue(newName)
+    private val _title: MutableLiveData<String> = MutableLiveData("Дрель Dexter, 100, Li-on, 2 Ач")
+    val title: LiveData<String> = _title
+
+    private val _itemsInCart: MutableLiveData<Int> = MutableLiveData(0)
+    val itemsInCart: LiveData<Int> = _itemsInCart
+
+    private val _availableCount: MutableLiveData<Int> = MutableLiveData(9999)
+    val availableCount: LiveData<Int> = _availableCount
+
+    private val _pickupStoresCount: MutableLiveData<Int> = MutableLiveData(10)
+    val pickupStoresCount: LiveData<Int> = _pickupStoresCount
+
+    private val _characteristics: MutableLiveData<List<CharacteristicModel>> =
+        MutableLiveData(listOf(
+            CharacteristicModel(title = "Толщина (мм)", value = "12.5"),
+            CharacteristicModel(title = "Вес, кг", value = "8,8"),
+            CharacteristicModel(title = "Марка", value = "KNAUF"),
+            CharacteristicModel(title = "СТрана производитель", value = "Россия"),
+        ))
+
+    val characteristics : LiveData<List<CharacteristicModel>> = _characteristics
+
+    fun addToCart() = _itemsInCart.postValue(1)
 }
