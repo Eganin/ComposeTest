@@ -31,7 +31,7 @@ class ProductViewModel : ViewModel() {
             CharacteristicModel(title = "Толщина (мм)", value = "12.5"),
             CharacteristicModel(title = "Вес, кг", value = "8,8"),
             CharacteristicModel(title = "Марка", value = "KNAUF"),
-            CharacteristicModel(title = "СТрана производитель", value = "Россия"),
+            CharacteristicModel(title = "Страна производитель", value = "Россия"),
         ))
 
     val characteristics : LiveData<List<CharacteristicModel>> = _characteristics

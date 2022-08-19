@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
+import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -82,6 +83,7 @@ fun ProductScreen(productViewModel: ProductViewModel = viewModel()) {
             item { HeaderView(height = 68.dp, title = "Способы получения") }
             item { DeliveryPickupView(productViewModel = productViewModel) }
             item { HeaderView(height = 68.dp, title = "Характеристики") }
+            item { CharacteristicsView(productViewModel = productViewModel) }
         })
 }
 
@@ -109,6 +111,40 @@ fun DeliveryPickupView(productViewModel: ProductViewModel) {
             }
         }
     }
+}
+
+@Composable
+fun CharacteristicsView(productViewModel: ProductViewModel) {
+
+    val characteristics by productViewModel.characteristics.observeAsState(emptyList())
+
+    Column(modifier = Modifier.fillMaxWidth()) {
+        characteristics.map { CharacteristicCell(model = it) }
+    }
+}
+
+@Composable
+fun CharacteristicCell(model: CharacteristicModel) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = 16.dp, end = 24.dp)
+            .height(60.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = model.title,
+            modifier = Modifier.weight(0.6f),
+            style = TextStyle(color = BrownGreyColor)
+        )
+        Text(
+            text = model.value, modifier = Modifier
+                .weight(0.6f)
+                .padding(8.dp),
+            style = TextStyle(color = Black)
+        )
+    }
+    Divider(color = VeryLightPink)
 }
 
 @Composable
@@ -155,7 +191,7 @@ fun HeaderView(height: Dp, title: String) {
         modifier = Modifier
             .fillMaxWidth()
             .height(height = height)
-            .background(color = whiteTwo)
+            .background(color = WhiteTwo)
             .padding(start = 16.dp, bottom = 16.dp),
         contentAlignment = Alignment.BottomStart
     ) {
