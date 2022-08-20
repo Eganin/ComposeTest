@@ -1,15 +1,23 @@
 package com.eganin.jetpack.thebest.composetest
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.eganin.jetpack.thebest.composetest.screens.navtest.*
 import com.eganin.jetpack.thebest.composetest.screens.product_details.ProductScreen
+import com.eganin.jetpack.thebest.composetest.ui.theme.Black
 import com.eganin.jetpack.thebest.composetest.ui.theme.ComposeTheme
 
 class MainActivity : ComponentActivity() {
@@ -17,11 +25,44 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             ComposeTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-                    ProductScreen()
+                CreateScaffold()
+            }
+        }
+    }
+}
+
+@Composable
+fun CreateScaffold() {
+    Surface(color = MaterialTheme.colors.background) {
+        val navController: NavHostController = rememberNavController()
+        val bottomItems = listOf("list", "search", "push")
+
+        Scaffold(
+            bottomBar = {
+                BottomNavigation {
+                    bottomItems.forEach { screen ->
+                        BottomNavigationItem(selected = false,
+                            onClick = { navController.navigate(screen) },
+                            label = { Text(text = screen) },
+                            icon = {})
+                    }
+                }
+            }
+        ) {
+            NavHost(navController = navController, startDestination = "list") {
+                composable("list") {
+                    ListScreen(navController = navController)
+                }
+                composable("search") {
+                    SearchScreen()
+                }
+                composable("push") {
+                    PushScreen()
+                }
+                composable("details") {
+                    navController.previousBackStackEntry?.savedStateHandle?.get<Word>("WORD_KEY")?.let {
+                        DetailsScreen(word = it)
+                    }
                 }
             }
         }
@@ -33,6 +74,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun DefaultPreview() {
     ComposeTheme {
-        ProductScreen()
+        CreateScaffold()
     }
 }
