@@ -21,6 +21,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.eganin.jetpack.thebest.composetest.screens.product_details.views.Caption
+import com.eganin.jetpack.thebest.composetest.screens.product_details.views.Subtitle5
 import com.eganin.jetpack.thebest.composetest.ui.theme.*
 
 @Preview
@@ -30,21 +32,6 @@ fun ComposablePreview() {
         ProductScreen()
     }
 }
-
-@Composable
-fun Subtitle5(text: String, modifier: Modifier = Modifier) = Text(
-    modifier = modifier,
-    text = text,
-    style = TextStyle(color = Black, fontSize = 14.sp, fontWeight = FontWeight.Normal)
-)
-
-@Composable
-fun Caption(text: String, modifier: Modifier = Modifier) =
-    Text(
-        modifier = modifier,
-        text = text,
-        style = TextStyle(color = BrownGreyColor, fontSize = 12.sp, fontWeight = FontWeight.Normal)
-    )
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -215,7 +202,6 @@ fun PriceView(productViewModel: ProductViewModel) {
     ) {
         Text(
             "13 686,00",
-            color = Black,
             modifier = Modifier.padding(start = 16.dp),
             style = TextStyle(color = Black, fontSize = 20.sp, fontWeight = FontWeight.Medium)
         )
