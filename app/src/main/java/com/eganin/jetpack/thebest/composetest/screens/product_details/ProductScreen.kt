@@ -1,13 +1,11 @@
 package com.eganin.jetpack.thebest.composetest.screens.product_details
 
-import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
-import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -15,7 +13,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -44,7 +41,7 @@ fun ProductScreen(productViewModel: ProductViewModel = viewModel()) {
         modifier = Modifier.fillMaxSize(),
         content = {
             stickyHeader { Toolbar() }
-            item { ImageHeader() }
+            item { ImageHeader(productViewModel=productViewModel) }
             item {
                 Text(
                     text = sku.orEmpty(),
@@ -70,6 +67,24 @@ fun ProductScreen(productViewModel: ProductViewModel = viewModel()) {
             item { CountView(productViewModel = productViewModel) }
             item { HeaderView(height = 68.dp, title = "Способы получения") }
             item { DeliveryPickupView(productViewModel = productViewModel) }
+            item {
+                Column {
+                    RouteButton(
+                        model = RouteButtonModel(
+                            routeId = "InStoreAvailability",
+                            title = "Наличие в магазинах"
+                        ), onClick = {
+
+                        })
+
+                    ActionButton(
+                        model = ActionButtonModel(
+                            title = "Добавить в список",
+                            selectedTitle = "Добавлено в список",
+                        ), onClick = { _, _ ->
+                        })
+                }
+            }
             item { HeaderView(height = 68.dp, title = "Характеристики") }
             item { CharacteristicsView(productViewModel = productViewModel) }
             item {
@@ -84,10 +99,10 @@ fun ProductScreen(productViewModel: ProductViewModel = viewModel()) {
 
                     ActionButton(
                         model = ActionButtonModel(
-                            actionId = "AddToCompare",
                             title = "Добавить к сравнению",
                             selectedTitle = "Добавлено в список",
-                        ), onClick = { _, _ -> })
+                        ), onClick = { _, _ ->
+                        })
                 }
             }
         })
@@ -127,30 +142,6 @@ fun CharacteristicsView(productViewModel: ProductViewModel) {
     Column(modifier = Modifier.fillMaxWidth()) {
         characteristics.map { CharacteristicCell(model = it) }
     }
-}
-
-@Composable
-fun CharacteristicCell(model: CharacteristicModel) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(start = 16.dp, end = 24.dp)
-            .height(60.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Text(
-            text = model.title,
-            modifier = Modifier.weight(0.6f),
-            style = TextStyle(color = BrownGreyColor)
-        )
-        Text(
-            text = model.value, modifier = Modifier
-                .weight(0.6f)
-                .padding(8.dp),
-            style = TextStyle(color = Black)
-        )
-    }
-    Divider(color = VeryLightPink)
 }
 
 @Composable
@@ -281,7 +272,8 @@ fun RatingRow() {
 }
 
 @Composable
-fun ImageHeader() {
+fun ImageHeader(productViewModel: ProductViewModel) {
+    val image by productViewModel.imageHeaderView.observeAsState("")
     Box(
         modifier = Modifier
             .background(color = White)

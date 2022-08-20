@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -15,7 +16,6 @@ import com.eganin.jetpack.thebest.composetest.ui.theme.Black
 import com.eganin.jetpack.thebest.composetest.ui.theme.White
 
 data class ActionButtonModel(
-    val actionId: String,
     val title: String,
     val selectedTitle: String,
     val icon: String? = null,
@@ -29,7 +29,7 @@ fun ActionButton(
     onClick: (ActionButtonModel, Boolean) -> Unit
 ) {
 
-    var isSelected by remember { mutableStateOf(model.isSelected) }
+    var isSelected by rememberSaveable{ mutableStateOf(model.isSelected) }
 
     Row(modifier = Modifier
         .fillMaxWidth()

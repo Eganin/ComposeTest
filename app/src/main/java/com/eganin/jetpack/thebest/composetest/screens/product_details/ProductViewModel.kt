@@ -3,11 +3,7 @@ package com.eganin.jetpack.thebest.composetest.screens.product_details
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-
-data class CharacteristicModel(
-    val title: String,
-    val value: String,
-)
+import com.eganin.jetpack.thebest.composetest.screens.product_details.views.CharacteristicModel
 
 class ProductViewModel : ViewModel() {
 
@@ -26,15 +22,23 @@ class ProductViewModel : ViewModel() {
     private val _pickupStoresCount: MutableLiveData<Int> = MutableLiveData(10)
     val pickupStoresCount: LiveData<Int> = _pickupStoresCount
 
-    private val _characteristics: MutableLiveData<List<CharacteristicModel>> =
-        MutableLiveData(listOf(
-            CharacteristicModel(title = "Толщина (мм)", value = "12.5"),
-            CharacteristicModel(title = "Вес, кг", value = "8,8"),
-            CharacteristicModel(title = "Марка", value = "KNAUF"),
-            CharacteristicModel(title = "Страна производитель", value = "Россия"),
-        ))
+    private val _imageHeaderView: MutableLiveData<String> =
+        MutableLiveData("https://cdnmedia.220-volt.ru/content/products/13/13321/images/original/n1200x800_q80/1.jpeg")
 
-    val characteristics : LiveData<List<CharacteristicModel>> = _characteristics
+    val imageHeaderView : LiveData<String> = _imageHeaderView
+
+    private val _characteristics: MutableLiveData<List<CharacteristicModel>> =
+        MutableLiveData(
+            listOf(
+                CharacteristicModel(title = "Толщина (мм)", value = "12.5"),
+                CharacteristicModel(title = "Вес, кг", value = "8,8"),
+                CharacteristicModel(title = "Марка", value = "KNAUF"),
+                CharacteristicModel(title = "Страна производитель", value = "Россия"),
+            )
+        )
+
+    val characteristics: LiveData<List<CharacteristicModel>> = _characteristics
 
     fun addToCart() = _itemsInCart.postValue(1)
+
 }
