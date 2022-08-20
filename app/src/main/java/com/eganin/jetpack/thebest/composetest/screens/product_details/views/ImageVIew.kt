@@ -90,9 +90,7 @@ fun loadImage(url: String?): MutableState<ImageViewState> {
                     ImageViewState.Error(ImageErrorStatus.RemoteError(e))
             }
 
-            override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
-                TODO("Not yet implemented")
-            }
+            override fun onPrepareLoad(placeHolderDrawable: Drawable?) {}
 
         })
     }

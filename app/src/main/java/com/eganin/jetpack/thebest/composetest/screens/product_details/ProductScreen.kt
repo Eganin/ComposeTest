@@ -1,7 +1,9 @@
 package com.eganin.jetpack.thebest.composetest.screens.product_details
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -13,6 +15,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -20,20 +23,16 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.eganin.jetpack.thebest.composetest.R
 import com.eganin.jetpack.thebest.composetest.screens.product_details.views.*
 import com.eganin.jetpack.thebest.composetest.ui.theme.*
 
-@Preview
-@Composable
-fun ComposablePreview() {
-    ComposeTheme {
-        ProductScreen()
-    }
-}
-
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ProductScreen(productViewModel: ProductViewModel = viewModel()) {
+fun ProductScreen(
+    productViewModel: ProductViewModel = viewModel(),
+
+) {
     val sku by productViewModel.sku.observeAsState()
     val title by productViewModel.title.observeAsState()
 
@@ -41,7 +40,7 @@ fun ProductScreen(productViewModel: ProductViewModel = viewModel()) {
         modifier = Modifier.fillMaxSize(),
         content = {
             stickyHeader { Toolbar() }
-            item { ImageHeader(productViewModel=productViewModel) }
+            item { ImageHeader(productViewModel = productViewModel) }
             item {
                 Text(
                     text = sku.orEmpty(),
@@ -74,7 +73,6 @@ fun ProductScreen(productViewModel: ProductViewModel = viewModel()) {
                             routeId = "InStoreAvailability",
                             title = "Наличие в магазинах"
                         ), onClick = {
-
                         })
 
                     ActionButton(
@@ -274,10 +272,9 @@ fun RatingRow() {
 @Composable
 fun ImageHeader(productViewModel: ProductViewModel) {
     val image by productViewModel.imageHeaderView.observeAsState("")
-    Box(
-        modifier = Modifier
-            .background(color = White)
-            .height(300.dp)
+    ImageView(
+        imageUrl = image, modifier = Modifier
+            .height(260.dp)
             .fillMaxWidth()
     )
 }
@@ -286,11 +283,31 @@ fun ImageHeader(productViewModel: ProductViewModel) {
 fun Toolbar() {
     Row(
         modifier = Modifier
-            .height(44.dp)
+            .height(56.dp)
             .fillMaxWidth()
-            .background(color = MaterialTheme.colors.background)
+            .background(color = MaterialTheme.colors.background),
+        verticalAlignment = Alignment.CenterVertically,
     ) {
-        Text(text = "Back", color = Black, modifier = Modifier.weight(1f))
-        Text(text = "Menu", color = Black)
+        Image(
+            painter = painterResource(id = R.drawable.ic_baseline_keyboard_backspace_24),
+            contentDescription = "Back Button",
+            modifier = Modifier
+                .clickable {
+
+                }
+                .size(56.dp)
+                .padding(16.dp)
+        )
+        Spacer(modifier = Modifier.weight(1f))
+        Image(
+            painter = painterResource(id = R.drawable.ic_baseline_more_horiz_24),
+            contentDescription = "More Button",
+            modifier = Modifier
+                .clickable {
+
+                }
+                .size(56.dp)
+                .padding(16.dp)
+        )
     }
 }
