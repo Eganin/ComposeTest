@@ -1,5 +1,6 @@
 package com.eganin.jetpack.thebest.composetest.screens.product_details
 
+import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -14,6 +15,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -21,8 +23,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.eganin.jetpack.thebest.composetest.screens.product_details.views.Caption
-import com.eganin.jetpack.thebest.composetest.screens.product_details.views.Subtitle5
+import com.eganin.jetpack.thebest.composetest.screens.product_details.views.*
 import com.eganin.jetpack.thebest.composetest.ui.theme.*
 
 @Preview
@@ -71,6 +72,24 @@ fun ProductScreen(productViewModel: ProductViewModel = viewModel()) {
             item { DeliveryPickupView(productViewModel = productViewModel) }
             item { HeaderView(height = 68.dp, title = "Характеристики") }
             item { CharacteristicsView(productViewModel = productViewModel) }
+            item {
+                Column {
+                    RouteButton(
+                        model = RouteButtonModel(
+                            routeId = "AllCharsScreen",
+                            title = "Все характеристики"
+                        ), onClick = {
+
+                        })
+
+                    ActionButton(
+                        model = ActionButtonModel(
+                            actionId = "AddToCompare",
+                            title = "Добавить к сравнению",
+                            selectedTitle = "Добавлено в список",
+                        ), onClick = { _, _ -> })
+                }
+            }
         })
 }
 

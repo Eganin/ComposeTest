@@ -17,6 +17,13 @@ fun Subtitle5(text: String, modifier: Modifier = Modifier) = Text(
 )
 
 @Composable
+fun Subtitle4(text: String, modifier: Modifier = Modifier) = Text(
+    modifier = modifier,
+    text = text,
+    style = TextStyle(color = Black, fontSize = 14.sp, fontWeight = FontWeight.Medium)
+)
+
+@Composable
 fun Caption(text: String, modifier: Modifier = Modifier) =
     Text(
         modifier = modifier,
