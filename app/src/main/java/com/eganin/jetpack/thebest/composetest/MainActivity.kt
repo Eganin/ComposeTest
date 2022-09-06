@@ -17,6 +17,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.eganin.jetpack.thebest.composetest.basicUI.NewMessageScreen
 import com.eganin.jetpack.thebest.composetest.canvasbasic.MyCanvas
+import com.eganin.jetpack.thebest.composetest.draggable.DragMusic
 import com.eganin.jetpack.thebest.composetest.meditationUI.HomeScreen
 import com.eganin.jetpack.thebest.composetest.screens.navtest.*
 import com.eganin.jetpack.thebest.composetest.screens.product_details.ProductScreen
@@ -39,7 +40,7 @@ fun CreateScaffold() {
     Surface(color = MaterialTheme.colors.background) {
         Scaffold {
             //HomeScreen()
-            MyCanvas()
+            DragMusic()
         }
     }
 }
