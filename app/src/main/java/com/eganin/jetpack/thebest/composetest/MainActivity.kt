@@ -16,6 +16,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.eganin.jetpack.thebest.composetest.basicUI.NewMessageScreen
+import com.eganin.jetpack.thebest.composetest.canvasbasic.MyCanvas
 import com.eganin.jetpack.thebest.composetest.meditationUI.HomeScreen
 import com.eganin.jetpack.thebest.composetest.screens.navtest.*
 import com.eganin.jetpack.thebest.composetest.screens.product_details.ProductScreen
@@ -36,30 +37,9 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun CreateScaffold() {
     Surface(color = MaterialTheme.colors.background) {
-        val navController: NavHostController = rememberNavController()
-        val bottomItems = listOf("list", "search", "push")
-
         Scaffold {
-            HomeScreen()
-            /*
-            NavHost(navController = navController, startDestination = "list") {
-                composable("list") {
-                    ListScreen(navController = navController)
-                }
-                composable("search") {
-                    NewMessageScreen()
-                }
-                composable("push") {
-                    PushScreen()
-                }
-                composable("details") {
-                    navController.previousBackStackEntry?.savedStateHandle?.get<Word>("WORD_KEY")?.let {
-                        DetailsScreen(word = it)
-                    }
-                }
-            }
-
-             */
+            //HomeScreen()
+            MyCanvas()
         }
     }
 }
